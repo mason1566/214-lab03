@@ -30,7 +30,7 @@ enum class Suit {
 // - return: an int between 0 - 51
 // pickRandomCard();
 int pickRandomCard() {
-    int card { pickRandomNumberInRange(0, 51) };
+    int card = pickRandomNumberInRange(0, 51);
     return card;
 }
 
@@ -39,15 +39,37 @@ int pickRandomCard() {
 // - return: an enum representing the Rank of the card index given.
 // getRank();
 Rank getRank(int cardIndex) {
-    return static_cast<Rank>(cardIndex % Constants::NUM_RANKS);
-} 
+    return static_cast<Rank>(cardIndex % Constants::NUM_SUITS);
+}
+
+std::string getRankString(Rank rank) {
+    int index = static_cast<int>(rank);
+    std::string ranks[13] = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
+    return ranks[index];
+}
+
+std::string getRankString(int rank) {
+    Rank rankObject = static_cast<Rank>(rank);
+    return getRankString(rankObject);
+}
 
 // Get the suit of a specific card index
 // - param 1: an int representing the card index
 // - return: an enum representing the Suit of the card index given.
 // getSuit();
 Suit getSuit(int cardIndex) {
-    return static_cast<Suit>(0);
+    return static_cast<Suit>(cardIndex % Constants::NUM_RANKS);
+}
+
+std::string getSuitString(Suit suit) {
+    int index = static_cast<int>(suit);
+    std::string suits[] {"Spades", "Hearts", "Diamonds", "Clubs"};
+    return suits[index];
+}
+
+std::string getSuitString(int suit) {
+    Suit suitObject = static_cast<Suit>(suit);
+    return getSuitString(suitObject);
 }
 
 // A function to assess whether all elements in a boolean array are true
@@ -56,7 +78,10 @@ Suit getSuit(int cardIndex) {
 // - param 2: ? do we need any other parameters here to make this work? You decide.
 // - return: a bool : true if ALL the elements in param 1 are true, false otherwise.
 // allArrayElementsAreTrue();
-bool allArrayElementsAreTrue(const bool *boolArray, const int size) {
+bool allArrayElementsAreTrue(bool *boolArray, const int size) {
+    for (int i = 0; i < size; i++) {
+        if (boolArray[i] == false) return false;
+    }
     return true;
 }
 
@@ -68,5 +93,24 @@ bool allArrayElementsAreTrue(const bool *boolArray, const int size) {
 // - return: an int representing the number of card picks it takes to cover 4 suits.
 // getPickCountNeededForFourSuits();
 int getPickCountNeededForFourSuits(bool verbose = true) {
-    return 0;
+    bool suitSeen[4] = {false};
+
+    int pickCount = 0;
+    while (!allArrayElementsAreTrue(suitSeen, Constants::NUM_SUITS)) {
+        int card = pickRandomCard();
+        int rank = card % 13;
+        int suit = card % 4;
+        
+        if (!suitSeen[suit]) {
+            suitSeen[suit] = true;
+            std::cout << getRankString(rank) << " of " << getSuitString(suit) << '\n';
+        }
+        pickCount++;
+    }
+
+    // for (int i = 0; i < std::size(suitSeen); i++) {
+    //     std::cout << suitSeen[i] << '\n';
+    // }
+
+    return pickCount;
 }

@@ -24,11 +24,31 @@ namespace Constants {
     // getRank();
     Rank getRank(int cardIndex); 
 
+    // Get the string version of a specific rank
+    // - param 1: a Rank object
+    // - return: a string representing the name of the rank
+    std::string getRankString(Rank rank);
+
+    // Get the string version of a specific rank
+    // - param 1: an int representing the rank (0-12)
+    // - return: a string representing the name of the rank
+    std::string getRankString(int rank);
+
     // Get the suit of a specific card index
     // - param 1: an int representing the card index
     // - return: an enum representing the Suit of the card index given.
     // getSuit();
     Suit getSuit(int cardIndex);
+
+    // Get the string version of a specific suit
+    // - param 1: a Suit object
+    // - return: a string representing the name of the suit
+    std::string getSuitString(Suit suit);
+
+    // Get the string version of a specific suit
+    // - param 1: an int representing the suit (0-3)
+    // - return: a string representing the name of the suit
+    std::string getSuitString(int suit);
 
     // A function to assess whether all elements in a boolean array are true
     // You can use this function to determine whether all suits have been picked.

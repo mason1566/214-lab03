@@ -4,7 +4,8 @@
 int main() {
     srand( static_cast<unsigned int>(time(0))); // set random seed
 
-    std::cout << pickRandomCard() << '\n';
+    int pickCount = getPickCountNeededForFourSuits();
+    std::cout << "Picks needed: " << pickCount << '\n';
 
     return 0;
 }
